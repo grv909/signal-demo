@@ -1,27 +1,50 @@
-# SignalDemo
+## SignalDemoComponent Setup (Day 1)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.10.
+### What I Did
 
-## Development server
+- Scaffolded a new Angular 17+ project using Angular CLI v17.3.10.
+- Generated a `SignalDemoComponent` using `ng g c signal-demo`.
+- Created a `signal<string>` in the component and bound it to the template.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Key Learning
 
-## Code scaffolding
+> ⚠️ Signals must be **invoked as functions** in templates (e.g. `greeting()`), not referenced as variables.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```ts
+greeting = signal("Hi"); // Correct
+```
 
-## Build
+## set and update Method (Day 2)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### What I Did
 
-## Running unit tests
+- Implemented set method
+- Implemented update method
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```ts
+setMessage(message: string) {
+    this.greetings.set(message); // Set Method
+  }
+```
 
-## Running end-to-end tests
+```ts
+ updateMessage(message: string) {
+    this.greetings.update((prev) => prev + message); //update Method
+  }
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Signals: `.set()` vs `.update()`
 
-## Further help
+| Method      | Description                            | Example Usage                                 |
+| ----------- | -------------------------------------- | --------------------------------------------- |
+| `.set()`    | Replaces the signal’s value completely | `this.greetings.set('Hello')`                 |
+| `.update()` | Modifies the value based on previous   | `this.greetings.update(prev => prev + ' hi')` |
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Reactive Updates (No ChangeDetectorRef Needed!)
+
+Angular Signals push changes **reactively**. Unlike `BehaviorSubject` or `@Input()`, there’s:
+
+- No need to inject `ChangeDetectorRef`
+- No call to `markForCheck()` or `detectChanges()`
+
+The DOM auto-renders on signal changes
