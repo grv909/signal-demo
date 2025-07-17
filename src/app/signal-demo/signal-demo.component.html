@@ -1,3 +1,10 @@
 <h2>{{ greetings() }}</h2>
 <button (click)="setMessage('Hello World')">Set Message</button>
 <button (click)="updateMessage(' and hi')">Update Message</button>
+
+<p>your name: {{ name() }}</p>
+<p>{{ welcomeMessage() }}</p>
+<input [value]="name()" (input)="name.set($any($event.target).value)" />
+
+<p>Your location: {{ location() }}</p>
+<button (click)="changeLocation('India')">Set location to India</button>
