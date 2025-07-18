@@ -8,3 +8,22 @@
 
 <p>Your location: {{ location() }}</p>
 <button (click)="changeLocation('India')">Set location to India</button>
+
+<h2>Day 5: Real-World Reactive Form</h2>
+
+<label>First Name:</label>
+<input
+  [value]="firstName()"
+  (input)="firstName.set($any($event.target).value)"
+/>
+
+<label>Last Name:</label>
+<input [value]="lastName()" (input)="lastName.set($any($event.target).value)" />
+
+<label>Email:</label>
+<input [value]="email()" (input)="email.set($any($event.target).value)" />
+
+<hr />
+
+<p><strong>Full Name:</strong> {{ fullName() }}</p>
+<p><strong>Form Valid:</strong> {{ formValid() }}</p>

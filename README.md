@@ -235,3 +235,41 @@ logEffect = effect(() => {
 | Logging, alerting, calling APIs       | ❌ No            | ✅ Yes                          |
 | Mutating outside world (DOM, console) | ❌ Never         | ✅ Always                       |
 | Called only when accessed             | ✅ Lazy          | ❌ Runs immediately & on change |
+
+# Day 5 Usecases of Effect and Computed
+
+- Computed can be used to continuously checks a conditions
+
+```ts
+firstName = signal<string>("Naruto");
+lastName = signal<string>("Uchiha");
+email = signal<string>("abcd@gmail.com");
+
+formValid = computed(() => this.firstName().trim().length > 0 && this.lastName().trim().length > 0 && this.email().includes("@"));
+```
+
+- Effect is used to log changes and to watch over the changes
+
+```ts
+logForm = effect(() => {
+  if (this.formValid()) {
+    console.log(`valid form submitted by ${this.fullName()}`);
+  }
+});
+```
+
+```html
+<label>First Name:</label>
+<input [value]="firstName()" (input)="firstName.set($any($event.target).value)" />
+
+<label>Last Name:</label>
+<input [value]="lastName()" (input)="lastName.set($any($event.target).value)" />
+
+<label>Email:</label>
+<input [value]="email()" (input)="email.set($any($event.target).value)" />
+
+<hr />
+
+<p><strong>Full Name:</strong> {{ fullName() }}</p>
+<p><strong>Form Valid:</strong> {{ formValid() }}</p>
+```
