@@ -149,12 +149,12 @@ Improves testability and clarity by expressing intent directly
 
 ## ⚙️ How `computed()` Works – The Mental Model
 
-When you define a `computed()`, Angular tracks all the signals you access **inside the function body**. These become _dependencies_. When **any dependency changes**, Angular re-runs the computation function and updates the computed signal.
+When we define a `computed()`, Angular tracks all the signals you access **inside the function body**. These become _dependencies_. When **any dependency changes**, Angular re-runs the computation function and updates the computed signal.
 
-### 🧩 Core Properties of `computed()`:
+### Core Properties of `computed()`:
 
 - It is **reactive** – auto-updates on dependency change.
-- It is **readonly** – you cannot `.set()` or `.update()` it.
+- It is **readonly** – we cannot `.set()` or `.update()` it.
 - It is **lazy** – it doesn’t recalculate until it’s accessed (like in the template).
 - It is **tracked by Angular** – works naturally with the change detection system.
 
